@@ -1,0 +1,38 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -10px 20px black;
+  flex: 1;
+}
+
+.list__title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.list-contents {
+  flex: 1;
+  display: flex;
+  gap: 40px;
+  margin: 10px 40px;
+}
+
+.list-contents img {
+  width: 150px;
+  height: 200px;
+  transition: transform 0.3s ease;
+}
+
+.list-contents img:hover {
+  transform: scale(1.1);
+  transform-origin: center center; /* 원하는 중심 설정 */
+}
+
+.my-element {
+  transition: transform 0.3s ease;
+}
+
+.my-element:hover {
+  transform: scale(1.2);
+  transform-origin: center center; /* 원하는 중심 설정 */
+}
