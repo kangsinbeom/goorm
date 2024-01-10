@@ -1,0 +1,46 @@
+* {
+  background-color: lightcoral;
+}
+
+.app {
+  width: 800px;
+  margin: 0 auto;
+  header {
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    h1 {
+      font-size: 24px;
+    }
+    button {
+      font-size: 24px;
+      color: white;
+      border: none;
+      border-bottom: 1px solid white;
+      background-color: transparent;
+      width: fit-content;
+    }
+  }
+  .todo-list {
+    width: 100%;
+    padding-top: 20px;
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid gray;
+      border-radius: 8px;
+      padding: 20px 10px;
+      background-color: lightskyblue;
+
+      .contents {
+        display: flex;
+        gap: 16px;
+      }
+      .actions {
+        display: flex;
+        gap: 16px;
+      }
+    }
+  }
+}
