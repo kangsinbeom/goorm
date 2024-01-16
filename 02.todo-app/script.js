@@ -1,25 +1,28 @@
 const list = document.getElementById("list");
 const createBtn = document.getElementById("create-btn");
-console.log("hello");
-const todos = [];
 
-createBtn.addEventListener("click", () => createNewTodo());
+let todos = [];
+createBtn.addEventListener("click", createNewTodo);
 
-const createNewTodo = () => {
-  const item = { id: 1, text: "밥먹기", complete: false };
+function createNewTodo() {
+  const item = { id: new Date().getTime(), text: "eat", complete: false };
   todos.unshift(item);
+  saveToLocalStorage();
+  const { itemEl, inputEl, editBtnEl, removeBtnEl } = createTodoElement(item);
 
-  const { itemEl, inputEl, editBtnEl, removeBtnEl } = creaeteTodoElemet(item);
-  list.prepend(itemEl);
+  list.prepend(itemEl); //노드를 첫번째 요소로 집어넣는 것 prepend
+
   inputEl.removeAttribute("disabled");
   inputEl.focus();
-};
+}
 
-const creaeteTodoElemet = (item) => {
+function createTodoElement(item) {
   const itemEl = document.createElement("div");
   itemEl.classList.add("item");
-  const checkEl = document.createElement("input");
-  checkEl.type = "checkbox";
+
+  const checkboxEl = document.createElement("input");
+  checkboxEl.type = "checkbox";
+  checkboxEl.checked = item.complete;
 
   if (item.complete) {
     itemEl.classList.add("complete");
@@ -27,10 +30,9 @@ const creaeteTodoElemet = (item) => {
 
   const inputEl = document.createElement("input");
   inputEl.type = "text";
-  inputEl.innerText = item.text;
+  inputEl.value = item.text;
   inputEl.setAttribute("disabled", "");
-  const contentEl = document.createElement("div");
-  contentEl.classList.add("contents");
+
   const actionsEl = document.createElement("div");
   actionsEl.classList.add("actions");
 
@@ -39,17 +41,65 @@ const creaeteTodoElemet = (item) => {
   editBtnEl.innerText = "edit";
 
   const removeBtnEl = document.createElement("button");
-  removeBtnEl.classList.add("material-icons", "remove-btn");
-  removeBtnEl.innerText = "remove_circle";
+  removeBtnEl.classList.add("material-icons");
+  removeBtnEl.innerText = "remove";
 
-  contentEl.append(checkEl);
-  contentEl.append(inputEl);
+  checkboxEl.addEventListener("change", () => {
+    item.complete = checkboxEl.checked;
+
+    if (item.complete) {
+      itemEl.classList.add("complete");
+    } else {
+      itemEl.classList.remove("complete");
+    }
+    saveToLocalStorage();
+  });
+  inputEl.addEventListener("blur", () => {
+    inputEl.setAttribute("disabled", "");
+    saveToLocalStorage();
+  });
+  inputEl.addEventListener("input", () => {
+    item.text = inputEl.value;
+  });
+  editBtnEl.addEventListener("click", () => {
+    inputEl.removeAttribute("disabled");
+    inputEl.focus();
+  });
+
+  removeBtnEl.addEventListener("click", () => {
+    todos = todos.filter((t) => t.id !== item.id);
+    itemEl.remove();
+    saveToLocalStorage();
+  });
+
+  itemEl.append(checkboxEl);
+  itemEl.append(inputEl);
 
   actionsEl.append(editBtnEl);
   actionsEl.append(removeBtnEl);
-
-  itemEl.append(contentEl);
   itemEl.append(actionsEl);
 
   return { itemEl, inputEl, editBtnEl, removeBtnEl };
-};
+}
+
+function saveToLocalStorage() {
+  const data = JSON.stringify(todos);
+  localStorage.setItem("my_todos", data);
+}
+
+function loadFromLocalStorage() {
+  const data = localStorage.getItem("my_todos");
+  if (data) {
+    todos = JSON.parse(data);
+  }
+}
+
+function displayTodos() {
+  loadFromLocalStorage();
+  for (let i = 0; i < todos.length; i++) {
+    const item = todos[i];
+    const { itemEl } = createTodoElement(item);
+    list.append(itemEl);
+  }
+}
+displayTodos();
