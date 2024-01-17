@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Github Finder</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header>Github Finder</header>
+      <div class="search">
+        <div>
+          <p class="search__title">Search Github Users</p>
+          <p class="search__sub">
+            Enter a username to fetch a user profile and repos
+          </p>
+        </div>
+        <input
+          type="search"
+          class="search__input"
+          id="search"
+          placeholder="유저의 아이디를 검색해 주세요"
+        />
+      </div>
+      <div id="profile"></div>
+      <div id="repo"></div>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
