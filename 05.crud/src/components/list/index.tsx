@@ -8,7 +8,12 @@ const List = () => {
       {ITEMARRAY.map((item, index) => (
         <Item item={item} key={index} />
       ))}
-      <Button title="목록 지우기" type="button" icon="trash" />
+      <Button
+        title="목록 지우기"
+        type="button"
+        icon="trash"
+        onClick={() => {}}
+      />
     </s.List>
   );
 };

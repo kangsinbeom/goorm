@@ -5,13 +5,29 @@ interface InputProp {
   id: string;
   type: "number" | "text";
   placeholder?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ title, id, type, placeholder }: InputProp) => {
+const Input = ({
+  title,
+  id,
+  type,
+  placeholder,
+  value,
+  onChange,
+}: InputProp) => {
   return (
     <s.Input>
       <label htmlFor={id}>{title}</label>
-      <input type={type} id={id} placeholder={placeholder} />
+      <input
+        type={type}
+        id={id}
+        name={id}
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
     </s.Input>
   );
 };

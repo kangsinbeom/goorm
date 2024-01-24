@@ -1,7 +1,10 @@
 import Input from "../input";
 import * as s from "./styles";
 import Button from "../button";
+import { useInput } from "../../hooks/useInput";
+import { toast } from "react-toastify";
 const Form = () => {
+  const [form, onChange] = useInput({ title: "", cost: "0" });
   return (
     <s.Form>
       <s.InputBox>
@@ -10,10 +13,23 @@ const Form = () => {
           id="title"
           type="text"
           placeholder="예) 렌트비"
+          onChange={onChange}
+          value={form.title}
         />
-        <Input title="비용" id="cost" type="number" />
+        <Input
+          title="비용"
+          id="cost"
+          type="number"
+          onChange={onChange}
+          value={form.cost}
+        />
       </s.InputBox>
-      <Button title="제출" type="submit" icon="send" />
+      <Button
+        title="제출"
+        type="submit"
+        icon="send"
+        onClick={() => toast.success("adfasd")}
+      />
     </s.Form>
   );
 };
