@@ -5,16 +5,17 @@ import { IoMdSend } from "react-icons/io";
 interface IconPorps {
   icon: "send" | "trash" | "pencil";
   color?: string;
+  onClick?: () => void;
 }
 
-const Icon = ({ icon, color }: IconPorps) => {
+const Icon = ({ icon, color, onClick }: IconPorps) => {
   switch (icon) {
     case "send":
-      return <IoMdSend color={color} />;
+      return <IoMdSend color={color} onClick={onClick} />;
     case "trash":
-      return <FaTrash color={color} />;
+      return <FaTrash color={color} onClick={onClick} />;
     case "pencil":
-      return <HiPencil color={color} />;
+      return <HiPencil color={color} onClick={onClick} />;
   }
 };
 
